@@ -1,0 +1,11 @@
+<h2>Week beginning {{weekStart | date:'dMMM'}}</h2>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="#day of days">
+        {{day.date | date:'EEEE'}}
+        <ul class="list-group" *ngFor="#meal of day">
+        	<li class="list-group-item">
+        		{meal}
+        	</li>
+        </ul>
+    </li>
+</ul>

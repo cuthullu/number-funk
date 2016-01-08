@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>House App</title>
+
+    <!-- 1. Load libraries -->
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <script src="/node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="/node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="/node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="/node_modules/angular2/bundles/http.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.0/router.dev.js"></script>
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="app/styles/style.css">
+    <!--<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
+
+    <!-- 2. Configure SystemJS -->
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/boot')
+                .then(null, console.error.bind(console));
+    </script>
+
+
+</head>
+
+<!-- 3. Display the application -->
+<body>
+<my-app>Loading...</my-app>
+</body>
+
+</html>

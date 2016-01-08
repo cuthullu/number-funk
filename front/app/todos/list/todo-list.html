@@ -1,0 +1,7 @@
+<h2>Todos</h2>
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="#todo of todos" [class.list-group-item-success]="todo.checked">
+        {{todo.message}}
+        <input class="float-right" type="checkbox" (ngModel)="todo.checked" (click)="todo.toggleChecked()">
+    </li>
+</ul>

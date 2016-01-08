@@ -1,0 +1,21 @@
+front:
+   build: ./front
+   volumes:
+       - ./front/app:/home/mean/app
+   links: 
+      - api
+   ports:
+      - "8081:3001"
+      - "80:3000"
+api:
+  build: ./api
+  volumes:
+    - ./api/server:/home/mean/server
+  links:
+    - db
+  ports:
+    - "3003:3003"
+db: 
+  image: mongo:latest
+  ports: 
+    - "27017:27017" 

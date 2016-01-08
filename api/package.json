@@ -1,0 +1,38 @@
+{
+  "name": "meal-planner-api",
+  "version": "1.0.0",
+  "description": "planning a weeks meals: Mean stack with docker and angular 2",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thullSL/meal-planner.git"
+  },
+  "author": "Thomas Hull ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thullSL/meal-planner/issues"
+  },
+  "homepage": "https://github.com/thullSL/meal-planner",
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "grunt": "^0.4.5",
+    "grunt-nodemon": "^0.4.0"
+  },
+  "dependencies": {
+    "URIjs": "^1.15.1",
+    "body-parser": "^1.13.3",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.3.5",
+    "express": "^4.13.0",
+    "gm": "^1.20.0",
+    "gridfs-stream": "^1.1.1",
+    "mongodb": "^2.0.35",
+    "kerberos": "~0.0.17",
+    "ng-file-upload": "^8.0.5",
+    "promise": "^7.0.4",
+    "request": "^2.58.0"
+  }
+}
