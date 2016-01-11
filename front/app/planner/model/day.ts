@@ -1,9 +1,10 @@
 export class Day {
     public _id: number;
-    public date: string;
-    public meals: string[] = [];
+    public date: Date;
+    public meals: string[];
 
-    constructor() {
-        
+    constructor(date?: Date) {
+        this.date = date;
+        this.meals = [];
     }
 }
