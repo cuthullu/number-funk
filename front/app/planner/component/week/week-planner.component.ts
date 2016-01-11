@@ -19,7 +19,7 @@ export class WeekPlannerComponent {
 
     ngOnInit() {
 		this.weekStart = new Date();
-		this.weekStart.setDate(this.weekStart.getDate() - (7 *  Number.parseInt(this._routeParams.get("index"))));
+		this.weekStart.setDate(this.weekStart.getDate() + (7 *  Number.parseInt(this._routeParams.get("index"))));
 		this.week = this._dayService.getWeek(this.weekStart);
     }
 }

@@ -20,7 +20,6 @@ import {TodoDashboardComponent} from './todos/todo-dashboard.component'
 
 @RouteConfig([
     { path: '/week/:index', name: 'Week', component: WeekPlannerComponent },
-    { path: '/week', name: 'Weeker', component: TodoDashboardComponent },
     {path:'/',      name: 'Dashboard',   component: TodoDashboardComponent, useAsDefault: true}
 ])
 export class AppComponent {

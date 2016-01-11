@@ -1,28 +1,30 @@
 import {Day} from './day';
 export class Week {
     public date: Date;
-    public days: Day[] = [];
+    public days: Day[] = new Array(7);
 
     constructor(date?: Date) {
         this.date = date;
+        this.fillWeek();
     }
 
     setData (data) {
 		if(data.body !== undefined){
-			this.days = this.days.concat(data.body);
+			data.body.forEach(day=> {
+				this.days[day.date.getDay()] = day;
+			});
+
 		}
-    	if(data.length < 7 || data.length === undefined) {
-			this.newWeek();
-    	}
     }
 
 
-    private newWeek() {
-		while (this.date.getDay() <= 6 && this.days.length < 7) {
-			this.days.push(new Day(new Date(this.date.getTime())));
-			this.date.setDate(this.date.getDate() + 1)
+    private fillWeek() {
+		for (var i = 0; i < this.days.length; i ++) {
+			if(this.days[i] === undefined)	{
+				var nd = new Date(this.date.getTime());
+				nd.setDate(nd.getDate() + i);
+				this.days[i] = new Day(nd);
+			}
 		}
-		this.date.setDate(this.date.getDate() + 7);
-		return this.days;
     }
 }
