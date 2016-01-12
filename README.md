@@ -1,6 +1,6 @@
-#Meal Planner
+#Number Funk
 
-A meal planner using the mean stack with Angular 2 and docker
+A number game using the mean stack with Angular 2 and docker
 
 The project consists of three docker modules
 
