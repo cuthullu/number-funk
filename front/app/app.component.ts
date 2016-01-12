@@ -5,6 +5,8 @@ import {NewTodoFormComponent} from './todos/form/new-todo-form.component'
 import {WeekPlannerComponent} from './planner/component/week/week-planner.component'
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {TodoDashboardComponent} from './todos/todo-dashboard.component'
+import {GameComponent} from './numbers/component/game/game.component'
+
 
 @Component({
     selector: 'my-app',
@@ -20,7 +22,7 @@ import {TodoDashboardComponent} from './todos/todo-dashboard.component'
 
 @RouteConfig([
     { path: '/week/:index', name: 'Week', component: WeekPlannerComponent },
-    {path:'/',      name: 'Dashboard',   component: TodoDashboardComponent, useAsDefault: true}
+    {path:'/',      name: 'Dashboard',   component: GameComponent, useAsDefault: true}
 ])
 export class AppComponent {
     public title = 'Meal Planner';

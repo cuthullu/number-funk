@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-6">
+            <span class="navbar-brand">Number Funk</span>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-6">
+            <div class="input-group float-right">
+                <input type="text" class="form-control" aria-describedby="player name" [(ngModel)]="game.name" placeholder="Player">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h3>
+            <span class="label label-success">
+            Score: 
+            <span class="badge">
+                {{game.points}}
+            </span>
+            </span> 
+            <span class="label label-primary">
+            Played: 
+            <span class="badge">
+                {{game.rounds.length}}
+            </span>
+        </span>
+        <span class="label label-info">
+            Solved: 
+            <span class="badge">
+                {{game.rounds.solved}}
+            </span>
+        </span>
+        </h3>
+    </div>
+    <div class="row">
+        <round-component [(round)]="currentRound" [(solved)]="solved" [(fail)]="failed"></round-component>
+    </div>
+</div>

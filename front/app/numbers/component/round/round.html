@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <h4>
+            <span class="label label-info">
+            Current round value: 
+            <span class="badge">
+                {{round.points}}
+            </span>
+            </span>
+            </h4>
+        </div>
+        
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="answer">Answer</label>
+                <input [(ngModel)]="answer" class="form-control" id="answer" type="number">
+            </div>
+            <button class="btn btn-success" (click)="checkAnswer()">Submit</button>
+            <button class="btn btn-warning" (click)="requestClue()">Add Clue</button>
+
+            <span class="float-right">
+            <button class="btn btn-danger" (click)="giveUp()">Give up</button>
+            </span>
+        </form>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="#clue of round.clues">
+                {{clue}}
+            </li>
+        </ul>
+    </div>
+</div>
