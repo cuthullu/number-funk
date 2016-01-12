@@ -1,6 +1,7 @@
 var express = require("express");
 var cookieParser = require("cookie-parser");
 var DayService = require("./dayService.js");
+var NumberService = require("./numberService.js");
 var bodyParser = require("body-parser");
 
 var ObjectId = require("mongodb").ObjectID;
@@ -20,6 +21,18 @@ module.exports = function (port, db) {
     var users = db.collection("users");
     var messages = db.collection("messages");
     var dayService = new DayService(db);
+
+    router.route("/math/random")
+        .get(function (req, res) {
+            var n = Math.floor(Math.random() * this.max);
+            numberService.getNumberFact(n)
+                .then(function (data)) {
+                    res.json(data);
+                }.catch(function (err) {
+                    res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+                });
+        });
 
     router.route("/days")
         .get(function (req, res) {

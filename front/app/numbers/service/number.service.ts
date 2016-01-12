@@ -8,6 +8,10 @@ export class NumberService {
     constructor(private http: Http) { }
 
     requestClue(round: Round) {
+       this.getClue(round, 0);
+    }
+    
+    private getClue(round: Round, attempt: number) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('X-Mashape-Key', 'Tkvkv3nGSJmshbKhgWUUMoaZ55Byp1pDVAwjsnaAaDNRhrIWic');

@@ -22,15 +22,6 @@ export class Round {
     	return this.solved;
     }
 
-    requestClue() {
-    	if(this.points > 0) {
-    		this._numberService.requestClue(this);
-			
-			return true;
-    	}
-    	return false;	
-    }
-
     addClue(json){
     	if(json.found) { 
     		var san = this.sanitize(json.text);
@@ -40,8 +31,9 @@ export class Round {
     		}else {
     			console.log("Duplicate Clue")
     		}
-
-    	}
+    	}else {
+            
+        }
     }
 
 	sanitize(raw: string) {

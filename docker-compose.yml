@@ -1,7 +1,7 @@
 front:
    build: ./front
    volumes:
-       - ./front/app:/home/mean/app
+       - /c/Users/thull/docker/meal-planner/front/app:/home/mean/app
    links: 
       - api
    ports:
@@ -10,7 +10,7 @@ front:
 api:
   build: ./api
   volumes:
-    - ./api/server:/home/mean/server
+    - /c/Users/thull/docker/meal-planner/api/server:/home/mean/server
   links:
     - db
   ports:

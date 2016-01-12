@@ -8,9 +8,8 @@ RUN npm install -g grunt-cli
 
 ADD package.json /home/mean/package.json
 RUN npm install 
+
 ADD . /home/mean
 
-
-
-VOLUME ["/home/mean/sever"]
+VOLUME ["/home/mean/server"]
 CMD ["grunt"]
