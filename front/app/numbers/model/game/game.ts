@@ -2,6 +2,7 @@ import {Round} from '../round';
 
 export class Game {
     public rounds: Round[] = [];
+    public currentRound;
     public points = 0;
     public name: string;
     public solved: number = 0;
@@ -22,6 +23,7 @@ export class Game {
     
     addRound(round: Round) {
         this.rounds.push(round);
+        this.currentRound = round;
         this.solved = this.rounds.filter(r =>  r.solved).length; 
     }
 }

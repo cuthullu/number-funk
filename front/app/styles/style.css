@@ -1,3 +1,9 @@
 .float-right {
     float: right;
 }
+
+.toast {
+    position: absolute;
+    top: 0;
+    z-index: 40;
+}
