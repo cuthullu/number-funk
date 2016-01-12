@@ -1,0 +1,5 @@
+<div class="toast-container">
+    <div *ngFor="#toast of toasts" class="alert toast alert-{{toast.level}}" role="alert">
+        {{toast.message}}
+    </div>
+</div>

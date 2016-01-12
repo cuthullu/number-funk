@@ -34,10 +34,5 @@
     <div class="row">
         <round-component [(round)]="game.currentRound" [(solved)]="solved" [(fail)]="failed"></round-component>
     </div>
-    <div  *ngIf="showSuccess" class="alert alert-success toast" role="alert">
-        Aye well done you got {{lastPoints}} points that round
-    </div>
-    <div *ngIf="showFailure" class="alert alert-warning toast" role="alert">
-        You failed. I'm taking one of your points. Don't fail again, failure.
-    </div>
+    <toast-container></toast-container>
 </div>

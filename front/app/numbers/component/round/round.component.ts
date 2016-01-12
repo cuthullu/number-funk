@@ -5,6 +5,7 @@ import {RouteParams} from "angular2/router"
 
 import {Round} from '../../model/round';
 import {NumberService} from './../../service/number.service'
+import {ToastService} from './../../service/toast.service'
 
 @Component({
     selector: 'round-component',
@@ -18,14 +19,28 @@ export class RoundComponent {
     @Input() fail;
     @Input() solved;
 
-    constructor(private _routeParams: RouteParams, private _numberService: NumberService) { 
+    constructor(
+        private _routeParams: RouteParams,
+        private _numberService: NumberService,
+        private _toastService: ToastService) { 
 
     }
 
     checkAnswer() {
 		this.round.checkAnswer(this.answer);
         if(this.round.solved) {
+            this._toastService.addToast(
+              "Aye well done you got " + this.round.points + " points that round",
+              "success",
+              3000  
+            );
             this.solved(this.round.points)
+        }else {
+            this._toastService.addToast(
+              "You failed. I'm taking one of your points. Don't fail again, failure.",
+              "warning",
+              3000  
+            );
         }
     }
 
