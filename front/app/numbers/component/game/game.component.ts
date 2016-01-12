@@ -33,7 +33,7 @@ export class GameComponent {
 
     addRound() {
         this.currentRound = new Round();
-        this.game.rounds.push(this.currentRound);
+        this.game.addRound(this.currentRound);
         this._numberService.requestClue(this.currentRound);
     }
 
