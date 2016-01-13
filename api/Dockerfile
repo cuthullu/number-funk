@@ -12,4 +12,4 @@ RUN npm install
 ADD . /home/mean
 
 VOLUME ["/home/mean/server"]
-CMD ["grunt"]
+CMD ["grunt", "nodemon"]

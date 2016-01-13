@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Http, Headers, HTTP_PROVIDERS} from 'angular2/http';
 import {Game} from '../model/game/game';
+import {ApiConnectionService} from './apiConnection.service';
 
 
 @Injectable()

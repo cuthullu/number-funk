@@ -6,5 +6,6 @@ import {NumberService} from './numbers/service/number.service'
 import {GameService} from './numbers/service/game.service'
 import {RoundService} from './numbers/service/round.service'
 import {ToastService} from './numbers/service/toast.service'
+import {ApiConnectionService} from './numbers/service/apiConnection.service'
 
-bootstrap(AppComponent, [NumberService, GameService, RoundService, ToastService, ROUTER_PROVIDERS, HTTP_PROVIDERS]);
+bootstrap(AppComponent, [ApiConnectionService, NumberService, GameService, RoundService, ToastService, ROUTER_PROVIDERS, HTTP_PROVIDERS]);

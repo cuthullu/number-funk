@@ -1,7 +1,9 @@
 var express = require("express");
 var cookieParser = require("cookie-parser");
 var DayService = require("./dayService.js");
+var GameService= require("./gameService.js");
 var NumberService = require("./numberService.js");
+var RoundService = require("./roundService.js");
 var bodyParser = require("body-parser");
 
 var ObjectId = require("mongodb").ObjectID;
@@ -18,71 +20,136 @@ module.exports = function (port, db) {
       next();
     });
 
-    var users = db.collection("users");
-    var messages = db.collection("messages");
-    var dayService = new DayService(db);
+    var gameService = new GameService(db);
+    var roundService = new RoundService(db);
+    var numberService = new NumberService("Tkvkv3nGSJmshbKhgWUUMoaZ55Byp1pDVAwjsnaAaDNRhrIWic");
 
-    router.route("/math/random")
-        .get(function (req, res) {
-            var n = Math.floor(Math.random() * this.max);
-            numberService.getNumberFact(n)
-                .then(function (data)) {
-                    res.json(data);
-                }.catch(function (err) {
-                    res.set("responseText", err.msg);
-                    res.sendStatus(err.code);
-                });
-        });
-
-    router.route("/days")
-        .get(function (req, res) {
-            var user  = req.query.user_id;
-
-            dayService.getDays(user)
-                .then(function (days) {
-                    res.json(days)
-                })
-                .catch(function (err) {
-                    res.set("responseText", err.msg);
-                    res.sendStatus(err.code);
-                });
-        })
-        .post(function (req, res) {
-            var day = req.body;
-            dayService.addDay(day)
+    router.route("/game")
+        .get(function (req,res) {
+            var game = {
+                points : 0,
+                solved : 0,
+                name : ""
+            }
+            
+            gameService.createGame(game)
                 .then(function(id) {
-                    res.location(id);
-                    res.sendStatus(201);
-                })
+                    game._id = id;
+                    res.json(game);
+                }).catch(function (err) {
+                    res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+                });
+        });
+    router.route("/game/:game")
+        .get(function(req,res) {
+            var gameId = req.params.game;
+            gameService.getGame(gameId)
+                .then(function(game){
+                    res.json(game);
+                }).catch(function(err) {
+                     res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+                });
         })
-        .put(function (req, res) {
-            var day = req.body;
 
-            dayService.updateDay(day)
-                .then(function () {
+    router.route("/game/:game/round")
+        .get(function (req, res){
+            var gameId = req.params.game;
+            roundService.getPreviousNumbers(gameId)
+                .then(numberService.getNumberFact)
+                .then(function(parsed){
+                    return roundService.createRound(parsed, gameId);
+                }).then(function(round) {
+                    sanitizeRound(round);
+                    res.json(round);
+                }).catch(function(err) {
+                     res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+                });
+        });
+        
+    router.route("/game/:game/name")
+        .post(function (req,res) {
+            var name = req.body.name;
+            var gameId = req.params.game;
+            gameService.setName(gameId,name)
+                .then(function(){
                     res.sendStatus(200);
+                }).catch(function(err) {
+                     res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+                });
+        });
+        
+    router.route("/round/:round")
+        .get(function(req,res) {
+            var id = req.params.round
+            roundService.getRound(id)
+                .then(function (round) {
+                    sanitizeRound(round);
+                    res.json(round)
                 })
                 .catch(function (err) {
                     res.set("responseText", err.msg);
                     res.sendStatus(err.code);
                 });
         });
-
-
-
-    router.route("/day/:id")
-        .get(function (req, res) {
-            var id = req.params.id;
-           
-            dayService.getDay(id)
-                .then(function (day) {
-                    res.json(day);
-                })
-                .catch(function (err) {
+        
+    router.route("/round/:round/clue")
+        .get(function(req,res) {
+           var roundId = req.params.round;
+           var returnClue;
+           roundService.getRound(roundId)
+            .then(function(round) {
+                return numberService.getNewClue(round.number, round.clues);
+            })
+            .then(function(newClue) {
+                if(newClue){
+                    returnClue = newClue;
+                    return roundService.addClue(roundId,newClue.text);
+                }else{
+                    res.json({newClue : false});
+                }
+            }).then(function(){
+                res.json({newClue: returnClue});
+            }).catch(function (err) {
+                    res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+            });
+        });
+        
+    router.route("/game/:game/round/:round/solve")
+        .post(function(req, res) {
+            var gameId = req.params.game;
+            var roundId = req.params.round;
+            var answer = req.body.answer;
+            var correct = false;
+            roundService.getRound(roundId)
+                .then(function(round){
+                    if(round.number === answer){
+                        correct = true;
+                        return roundService.setRoundSolved(roundId)
+                            .then(function(){
+                                return gameService.incPoints(gameId,round.points);
+                            });
+                    } else if(round.points > 0){
+                        return roundService.decPoints(roundId);
+                    }
+                }).then(function(){
+                    res.json({'result': correct});
+                }).catch(function (err) {
+                    res.set("responseText", err.msg);
                     res.sendStatus(err.code);
                 });
         });
-    app.use("/api", router);
+
+       app.use("/api", router);
+    
+    function sanitizeRound(round){
+        //delete round.number;
+    }
+    
 
     return app.listen(port);
 };

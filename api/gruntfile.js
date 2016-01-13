@@ -8,8 +8,14 @@ module.exports = function (grunt) {
                 script: "server/server.js",
                 options: {
                     ignore: ["public/", "Gruntfile.js", "build_artifacts"]
+                } 
+            },
+            docker: {
+                options:{
+                    watch: ['/home/mean/server']
                 }
             }
+
         }
     });
 
