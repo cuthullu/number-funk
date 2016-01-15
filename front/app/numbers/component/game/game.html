@@ -24,15 +24,15 @@
             </span>
         </span>
         <span class="label label-info">
-            
+            Solved
             <span class="badge">
-                {{game.solved}}
+                {{game.getSolved()}}
             </span>
         </span>
         </h3>
     </div>
-    <div class="row" *ngIf="currentRound">
-        <round-component [(round)]="currentRound" [(game)]="game" [(giveUpRound)]="giveUp"></round-component>
+    <div class="row" *ngIf="game.currentRound">
+        <round-component [(round)]="game.currentRound" [(game)]="game" [(giveUpRound)]="giveUp"></round-component>
     </div>
     <toast-container></toast-container>
 </div>

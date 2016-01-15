@@ -21,7 +21,6 @@ import {ToastComponent} from '../toast/toast.component'
 
 export class GameComponent {
     public game: Game;
-    public currentRound;
 
     constructor(private _routeParams: RouteParams,
         private _numberService: NumberService,
@@ -33,16 +32,7 @@ export class GameComponent {
     ngOnInit() {
         this._gameService.game$.subscribe(sGame => {
             if (this.game === undefined) {
-                this.game = sGame;
-                this._roundService.rounds$.subscribe(nRounds => {
-                    this.game.rounds = nRounds;
-                    this.currentRound = this.game.peekAtRounds();
-                })
-                if (this.game.rounds.length === 0) {
-                    this._roundService.reqNewRound(this.game);
-                } else {
-                    this.currentRound = this.game.peekAtRounds();
-                }
+                this.game = sGame;      
             } else {
                 this.game.update(sGame);
             }

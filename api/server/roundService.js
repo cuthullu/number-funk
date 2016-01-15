@@ -6,14 +6,13 @@ function RoundService(db) {
     var rounds = db.collection("rounds");
     var maxPoints = 10;
     
-    this.getRounds = function(game) {
+    this.getRounds = function(gameId) {
         return new Promise(function(resolve,reject) {
-            rounds.find({'game': game._id.toString()}).toArray(function(err, rounds){
+            rounds.find({'game': gameId}).toArray(function(err, rounds){
                 if (err) {
                     reject({code: 500, msg: err});
                 } else {
-                    game.rounds = rounds;
-                    resolve(game);
+                    resolve(rounds);
                 }
             });
 
@@ -92,7 +91,7 @@ function RoundService(db) {
             rounds.updateOne(
                 {_id: mongo.ObjectID(id)},
                 {
-                    $set : {"sovled" : true}
+                    $set : {"solved" : true}
                 },
                 function(err,res){
                    if (err) {

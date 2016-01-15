@@ -4,7 +4,8 @@ import {Observable} from 'rxjs/Observable'
 import 'rxjs/add/operator/share';
 import {Game} from '../model/game/game';
 import {ApiConnectionService} from './apiConnection.service';
-import {ToastService} from './toast.service'
+import {ToastService} from './toast.service';
+import {RoundService} from './round.service';
 
 
 @Injectable()
@@ -14,7 +15,8 @@ export class GameService {
     constructor(
         private http: Http, 
         private _apiConnectionService: ApiConnectionService,
-        private _toastService: ToastService ) {
+        private _toastService: ToastService,
+        private _roundService: RoundService ) {
             this.game$ = new Observable(observer => 
             this._gameObserver = observer).share();
          }
@@ -24,6 +26,16 @@ export class GameService {
         this.http.get(url).subscribe(
             data => {
                 var g:Game = new Game(data.json());
+                this._roundService.getRounds(g);
+                this._roundService.rounds$.subscribe(rounds => {
+                    g.rounds = rounds;
+                    if (g.rounds.length === 0) {
+                        this._roundService.reqNewRound(g);
+                    } else {
+                        g.currentRound = g.peekAtRounds();
+                    }
+                    this._gameObserver.next(g);    
+                });
                 this._gameObserver.next(g);
             },
             err => this._toastService.addToast(err,"danger",3000)

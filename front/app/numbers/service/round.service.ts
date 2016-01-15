@@ -6,7 +6,6 @@ import {Round} from '../model/round';
 import {NumberService} from './number.service'
 import {ApiConnectionService} from './apiConnection.service';
 import {ToastService} from './toast.service'
-import {GameService} from './game.service'
 
 @Injectable()
 export class RoundService {
@@ -20,8 +19,7 @@ export class RoundService {
     constructor(
         private http: Http,
         private _apiConnectionService: ApiConnectionService,
-        private _toastService: ToastService,
-        private _gameService: GameService ) {
+        private _toastService: ToastService) {
             this.rounds$ = new Observable(observer => 
             this._roundsObserver = observer).share();
             
@@ -30,10 +28,10 @@ export class RoundService {
         }
     
     reqNewRound(game: Game) { 
-        var url = this._apiConnectionService.getHost() + "/game/" + game._id + "/round";
+        var url = this._apiConnectionService.getHost() + "/game/" + game._id + "/rounds/new";
         this.http.get(url).subscribe(
             data => {
-                this._rounds.push(data.json());
+                this._rounds.push(new Round(data.json()));
                 this._roundsObserver.next(this._rounds);
             },
             err => this._toastService.addToast(err,"danger")
@@ -41,7 +39,7 @@ export class RoundService {
     }
     
     reqClue(round:Round) {
-        var url = this._apiConnectionService.getHost() + "/round/" + round._id + "/clue";
+        var url = this._apiConnectionService.getHost() + "/rounds/" + round._id + "/clue";
         this.http.get(url).subscribe(
             data => {
                 if(data.json().newClue === false){
@@ -53,22 +51,37 @@ export class RoundService {
         );
     }
     
-    updateRound(round) {
-        var url = this._apiConnectionService.getHost() + "/round/" + round._id;
+    updateRound = (round) => {
+        var url = this._apiConnectionService.getHost() + "/rounds/" + round._id;
         this.http.get(url).subscribe(
             data => {
                 this._rounds.forEach(round => {
                     if(round._id === data.json()._id){
-                        round = data.json();
+                        round.update(data.json())
                     }
+                })
+                console.log("rounds",this, this._rounds);    
+                //this._roundsObserver.next(this._rounds);
+            },
+            err => this._toastService.addToast(err,"danger")
+        );
+    }
+    
+    getRounds = (game) => {
+        var url = this._apiConnectionService.getHost() + "/game/" + game._id + "/rounds";
+        this.http.get(url).subscribe(
+            data => {
+                data.json().forEach(jRound => {
+                    this._rounds.push(new Round(jRound));
                 })    
+                this._roundsObserver.next(this._rounds);
             },
             err => this._toastService.addToast(err,"danger")
         );
     }
     
     postSolution(game, round, answer) {
-        var url = this._apiConnectionService.getHost() + "/game/" + game._id + "/round/" + round._id + "/solve";
+        var url = this._apiConnectionService.getHost() + "/game/" + game._id + "/rounds/" + round._id + "/solve";
         var body =  JSON.stringify({answer: answer});
         this.http.post(url, body).subscribe(
             data => this.runResult(game, round, data.json()),
@@ -76,7 +89,7 @@ export class RoundService {
         );
     }
     
-    private runResult(game: Game, round: Round, json) {
+    private runResult = (game: Game, round: Round, json) => {
         round.solved = json.result;
         if(json.result === true) {
             this._toastService.addToast(

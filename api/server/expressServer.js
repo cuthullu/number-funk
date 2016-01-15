@@ -46,7 +46,6 @@ module.exports = function (port, db) {
         .get(function(req,res) {
             var gameId = req.params.game;
             gameService.getGame(gameId)
-                .then(roundService.getRounds)
                 .then(function(game){
                     res.json(game);
                 }).catch(function(err) {
@@ -54,8 +53,20 @@ module.exports = function (port, db) {
                     res.sendStatus(err.code);
                 });
         })
+        
+    router.route("/game/:game/rounds")
+        .get(function(req, res) {
+            var gameId = req.params.game;
+            roundService.getRounds(gameId)
+                .then(function(rounds){
+                    res.json(rounds)
+                }).catch(function(err) {
+                    res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+                });
+        })
 
-    router.route("/game/:game/round")
+    router.route("/game/:game/rounds/new")
         .get(function (req, res){
             var gameId = req.params.game;
             roundService.getPreviousNumbers(gameId)
@@ -84,7 +95,7 @@ module.exports = function (port, db) {
                 });
         });
         
-    router.route("/round/:round")
+    router.route("/rounds/:round")
         .get(function(req,res) {
             var id = req.params.round
             roundService.getRound(id)
@@ -98,7 +109,7 @@ module.exports = function (port, db) {
                 });
         });
         
-    router.route("/round/:round/clue")
+    router.route("/rounds/:round/clue")
         .get(function(req,res) {
            var roundId = req.params.round;
            var returnClue;
@@ -121,7 +132,7 @@ module.exports = function (port, db) {
             });
         });
         
-    router.route("/game/:game/round/:round/solve")
+    router.route("/game/:game/rounds/:round/solve")
         .post(function(req, res) {
             var gameId = req.params.game;
             var roundId = req.params.round;

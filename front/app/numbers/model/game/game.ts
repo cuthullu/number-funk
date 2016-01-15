@@ -10,11 +10,7 @@ export class Game {
 
     constructor(obj?) {
         if (obj) {
-            var jRounds = obj.rounds;
-            delete obj.rounds;
             for (var prop in obj) this[prop] = obj[prop];
-
-            for (var jRound of jRounds) this.rounds.push(new Round(jRound));
         }
     }
 
@@ -37,5 +33,10 @@ export class Game {
 
     peekAtRounds() {
         return this.rounds[this.rounds.length - 1];
+    }
+    
+    getSolved() {
+        this.solved = this.rounds.filter(r => r.solved).length;
+        return this.solved;
     }
 }
