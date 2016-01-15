@@ -2,9 +2,9 @@ import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class ApiConnectionService {
-    constructor(private http: Http) { }
+    constructor() { }
 
     getHost() {
-        return "localhost:3003/api/"
+        return "http://192.168.99.100:3003/api"
     }
 }

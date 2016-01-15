@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="game">
     <div class="row">
         <div class="col-md-8 col-sm-6 col-xs-6">
             <span class="navbar-brand">Number Funk</span>
@@ -24,15 +24,15 @@
             </span>
         </span>
         <span class="label label-info">
-            Solved: 
+            
             <span class="badge">
                 {{game.solved}}
             </span>
         </span>
         </h3>
     </div>
-    <div class="row">
-        <round-component [(round)]="game.currentRound" [(solved)]="solved" [(fail)]="failed"></round-component>
+    <div class="row" *ngIf="currentRound">
+        <round-component [(round)]="currentRound" [(game)]="game" [(giveUpRound)]="giveUp"></round-component>
     </div>
     <toast-container></toast-container>
 </div>

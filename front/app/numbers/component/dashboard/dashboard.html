@@ -1,0 +1,8 @@
+<div class="container">
+    <button class="btn btn-success" (click)="newGame()">New Game</button>
+    {{myShow}}
+    {{game}}
+    <div *ngIf="myShow" class="container">
+        <game-component [(game)]="game"></game-component>
+    </div>
+</div>

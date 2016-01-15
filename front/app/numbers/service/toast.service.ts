@@ -4,9 +4,11 @@ import {Toast} from '../model/toast'
 @Injectable()
 export class ToastService {
     public toasts: Toast[] = [];
+    private LIFETIME_DEFULT =  5000;
     constructor() { }
     
-    addToast(message: string, level: string, lifetime: number) {
+    addToast(message: string, level: string, lifetime?: number) {
+        lifetime = lifetime === undefined? this.LIFETIME_DEFULT: lifetime;
         var toast  = new Toast(message,level, lifetime);
         this.toasts.push(toast);
         setTimeout(() => 

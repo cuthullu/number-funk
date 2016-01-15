@@ -16,7 +16,7 @@ module.exports = function (port, db) {
     app.use(cookieParser());
     app.use(function(req, res, next) {
       res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "X-Requested-With");
+      res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
       next();
     });
 
@@ -35,6 +35,7 @@ module.exports = function (port, db) {
             gameService.createGame(game)
                 .then(function(id) {
                     game._id = id;
+                    game.rounds = [];
                     res.json(game);
                 }).catch(function (err) {
                     res.set("responseText", err.msg);
@@ -45,6 +46,7 @@ module.exports = function (port, db) {
         .get(function(req,res) {
             var gameId = req.params.game;
             gameService.getGame(gameId)
+                .then(roundService.getRounds)
                 .then(function(game){
                     res.json(game);
                 }).catch(function(err) {
@@ -112,7 +114,7 @@ module.exports = function (port, db) {
                     res.json({newClue : false});
                 }
             }).then(function(){
-                res.json({newClue: returnClue});
+                res.json({clue: returnClue,penalty : -1});
             }).catch(function (err) {
                     res.set("responseText", err.msg);
                     res.sendStatus(err.code);
@@ -123,10 +125,12 @@ module.exports = function (port, db) {
         .post(function(req, res) {
             var gameId = req.params.game;
             var roundId = req.params.round;
+            console.log(req.body);
             var answer = req.body.answer;
             var correct = false;
             roundService.getRound(roundId)
                 .then(function(round){
+                    console.log(answer, round);
                     if(round.number === answer){
                         correct = true;
                         return roundService.setRoundSolved(roundId)

@@ -5,6 +5,20 @@ var mongo = require("mongodb");
 function RoundService(db) {
     var rounds = db.collection("rounds");
     var maxPoints = 10;
+    
+    this.getRounds = function(game) {
+        return new Promise(function(resolve,reject) {
+            rounds.find({'game': game._id.toString()}).toArray(function(err, rounds){
+                if (err) {
+                    reject({code: 500, msg: err});
+                } else {
+                    game.rounds = rounds;
+                    resolve(game);
+                }
+            });
+
+        });
+    }
 
     this.createRound = function(numberFact, game) {
         var round = {
