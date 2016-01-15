@@ -55,8 +55,8 @@ export class GameService {
     }
     
     setGameName(id,name) {
-        var url = this._apiConnectionService.getHost() + "/game/" + id + "/";
-        this.http.post(url, {name : name}).subscribe(
+        var url = this._apiConnectionService.getHost() + "/game/" + id + "/name";
+        this.http.post(url, JSON.stringify({name : name})).subscribe(
             () => this._toastService.addToast("Name Submitted good", "success", 3000),
             err => this._toastService.addToast(err,"danger",3000)
         );

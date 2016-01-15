@@ -49,6 +49,10 @@ export class GameComponent {
     addRound() {
         this._roundService.reqNewRound(this.game);
     }
+    
+    saveName() {
+        this._gameService.setGameName(this.game._id, this.game.name);
+    }
 
     public giveUp = () => {
         this.addRound();

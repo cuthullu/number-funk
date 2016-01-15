@@ -162,7 +162,9 @@ module.exports = function (port, db) {
        app.use("/api", router);
     
     function sanitizeRound(round){
-        //delete round.number;
+        if(!round.solved) {
+            delete round.number;
+        }
     }
     
 

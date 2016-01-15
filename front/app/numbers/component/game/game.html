@@ -4,8 +4,14 @@
             <span class="navbar-brand">Number Funk</span>
         </div>
         <div class="col-md-4 col-sm-6 col-xs-6">
-            <div class="input-group float-right">
-                <input type="text" class="form-control" aria-describedby="player name" [(ngModel)]="game.name" placeholder="Player">
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" aria-describedby="player name" [(ngModel)]="game.name" placeholder="Player">
+                </div>
+                <button class="btn btn-primary" (click)="saveName()">Save Name</button>
+            </form>
+            <div class="input-group float-right form-inline">
+
             </div>
         </div>
     </div>
