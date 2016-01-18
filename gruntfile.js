@@ -36,19 +36,13 @@ module.exports = function (grunt) {
         copy: {
             main: {
                 files: [
-                {src: ['node_modules/angular2/bundles/angular2-polyfills.min.js'], dest: 'public/lib/', filter: 'isFile'},
-                {src: ['node_modules/systemjs/dist/system.js'], dest: 'public/lib/', filter: 'isFile'},
-                {src: ['node_modules/rxjs/bundles/Rx.min.js'], dest: 'public/lib/', filter: 'isFile'},
-                {src: ['node_modules/angular2/bundles/angular2.min.js'], dest: 'public/lib/', filter: 'isFile'},
-                {src: ['node_modules/angular2/bundles/http.min.js'], dest: 'public/lib/', filter: 'isFile'},
-                {src: ['node_modules/angular2/bundles/router.min.js'], dest: 'public/lib/', filter: 'isFile'},
-                
-                {src: ['node_modules/angular2/bundles/angular2-polyfills.min.js'], dest: 'front/lib/', filter: 'isFile'},
-                {src: ['node_modules/systemjs/dist/system.js'], dest: 'front/lib/', filter: 'isFile'},
-                {src: ['node_modules/rxjs/bundles/Rx.min.js'], dest: 'front/lib/', filter: 'isFile'},
-                {src: ['node_modules/angular2/bundles/angular2.min.js'], dest: 'front/lib/', filter: 'isFile'},
-                {src: ['node_modules/angular2/bundles/http.min.js'], dest: 'front/lib/', filter: 'isFile'},
-                {src: ['node_modules/angular2/bundles/router.min.js'], dest: 'front/lib/', filter: 'isFile'},
+                {src: ['node_modules/angular2/bundles/angular2-polyfills.min.js'], dest: 'public/', filter: 'isFile'},
+                {src: ['node_modules/systemjs/dist/system.js'], dest: 'public/', filter: 'isFile'},
+                {src: ['node_modules/rxjs/bundles/Rx.min.js'], dest: 'public/', filter: 'isFile'},
+                {src: ['node_modules/angular2/bundles/angular2.min.js'], dest: 'public/', filter: 'isFile'},
+                {src: ['node_modules/angular2/bundles/http.min.js'], dest: 'public/', filter: 'isFile'},
+                {src: ['node_modules/angular2/bundles/router.min.js'], dest: 'public/', filter: 'isFile'},
+                {src: ['node_modules/bootstrap/dist/css/bootstrap.min.css'], dest: 'public/', filter: 'isFile'}
                 
                 ],
             },

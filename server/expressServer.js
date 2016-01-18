@@ -12,6 +12,8 @@ module.exports = function (port, db) {
     var app = express();
     var router = express.Router();
     app.use(express.static("public"));
+    app.use(express.static("public"));
+    app.use(express.static("public/node_modules/angular2/bundles"));
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.use(function(req, res, next) {
