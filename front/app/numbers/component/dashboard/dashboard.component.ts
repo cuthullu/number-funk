@@ -1,6 +1,6 @@
 import {Component, Inject,View} from 'angular2/core'
 import {OnInit} from 'angular2/core';
-import {Input, Output, EventEmitter, TimerWrapper} from 'angular2/core';
+import {Input, Output, EventEmitter} from 'angular2/core';
 import {Router} from "angular2/router";
 
 import {Game} from '../../model/game/game';
