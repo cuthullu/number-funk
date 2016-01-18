@@ -5,6 +5,6 @@ export class ApiConnectionService {
     constructor() { }
 
     getHost() {
-        return "http://192.168.99.100:3003/api"
+        return "http://127.0.0.1:3003/api"
     }
 }
