@@ -4,7 +4,7 @@
   "description": "planning a weeks meals: Mean stack with docker and angular 2",
   "main": "server/server.js",
   "scripts": {
-    "test": "grunt test"
+    "start": "grunt makey"
   },
   "repository": {
     "type": "git",
