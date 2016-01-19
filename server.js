@@ -2,7 +2,7 @@ var server = require("./server/expressServer");
 var MongoClient = require("mongodb").MongoClient;
 var port = process.env.PORT || 3003;
 var dbUri =  process.env.DB_URI || 'mongodb://192.168.99.100/meal-planner';
-console.log(dbUri);
+console.log("HELLO", dbUri);
 var mongo = require("mongodb");
 MongoClient.connect(dbUri, function (err, db) {
     if (err) {
