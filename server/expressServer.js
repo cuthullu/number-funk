@@ -11,7 +11,7 @@ var ObjectId = require("mongodb").ObjectID;
 module.exports = function (port, db) {
     var app = express();
     var router = express.Router();
-    app.use(express.static("front"));
+    app.use(express.static("public"));
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.use(function(req, res, next) {
@@ -59,6 +59,9 @@ module.exports = function (port, db) {
             var gameId = req.params.game;
             roundService.getRounds(gameId)
                 .then(function(rounds){
+                    for(var round of rounds){
+                        sanitizeRound(round);
+                    }
                     res.json(rounds)
                 }).catch(function(err) {
                     res.set("responseText", err.msg);
@@ -136,12 +139,10 @@ module.exports = function (port, db) {
         .post(function(req, res) {
             var gameId = req.params.game;
             var roundId = req.params.round;
-            console.log(req.body);
             var answer = req.body.answer;
             var correct = false;
             roundService.getRound(roundId)
                 .then(function(round){
-                    console.log(answer, round);
                     if(round.number === answer){
                         correct = true;
                         return roundService.setRoundSolved(roundId)
@@ -165,6 +166,7 @@ module.exports = function (port, db) {
         if(!round.solved) {
             delete round.number;
         }
+        return round;
     }
     
 

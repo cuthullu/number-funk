@@ -7,7 +7,7 @@ import {Toast} from '../../model/toast'
 import {ToastService} from '../../service/toast.service'
 @Component({
     selector: 'toast-container',
-    templateUrl: 'app/numbers/component/toast/toast.html',
+    templateUrl: 'views/toast.html',
 })
 
 export class ToastComponent {

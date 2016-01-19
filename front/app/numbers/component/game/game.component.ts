@@ -13,7 +13,7 @@ import {ToastComponent} from '../toast/toast.component'
 
 @Component({
     selector: 'game-component',
-    templateUrl: 'app/numbers/component/game/game.html',
+    templateUrl: 'views/game.html',
     directives: [RoundComponent, ToastComponent]
 
 })

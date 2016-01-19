@@ -14,7 +14,7 @@ import {GameComponent} from '../game/game.component';
 
 @Component({
     selector: 'dashboard-component',
-    templateUrl: 'app/numbers/component/dashboard/dashboard.html',
+    templateUrl: 'views/dashboard.html',
     directives: [GameComponent]
 })
 

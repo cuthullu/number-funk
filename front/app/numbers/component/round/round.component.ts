@@ -10,7 +10,7 @@ import {ToastService} from './../../service/toast.service'
 
 @Component({
     selector: 'round-component',
-    templateUrl: 'app/numbers/component/round/round.html'
+    templateUrl: 'views/round.html'
 
 })
 

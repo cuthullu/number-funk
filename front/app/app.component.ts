@@ -11,7 +11,7 @@ import {DashboardComponent} from './numbers/component/dashboard/dashboard.compon
     <a [routerLink]="['Dashboard']">Dashboard</a>
     <router-outlet></router-outlet>
     `,
-    styleUrls:['app/styles/style.css'],
+    styleUrls:['styles/style.css'],
     directives: [ROUTER_DIRECTIVES]
 })
 
