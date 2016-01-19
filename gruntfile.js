@@ -50,6 +50,7 @@ module.exports = function (grunt) {
             },
         }
     });
-    grunt.registerTask("makey",["ts:build", "copy", "nodemon"]);
-	grunt.registerTask("default", ["makey"]);
+    grunt.registerTask("makey",["ts:build", "copy"]);
+    grunt.registerTask("makeydemon",["ts:build", "copy", "nodemon"]);
+	grunt.registerTask("default", ["makeydemon"]);
 };
