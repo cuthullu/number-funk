@@ -1,4 +1,5 @@
 var express = require("express");
+var path = require('path');
 var cookieParser = require("cookie-parser");
 var DayService = require("./dayService.js");
 var GameService= require("./gameService.js");
@@ -11,7 +12,9 @@ var ObjectId = require("mongodb").ObjectID;
 module.exports = function (port, db) {
     var app = express();
     var router = express.Router();
+    
     app.use(express.static("public"));
+    
     app.use(bodyParser.json());
     app.use(cookieParser());
     app.use(function(req, res, next) {
@@ -160,7 +163,10 @@ module.exports = function (port, db) {
         });
 
        app.use("/api", router);
-    
+       var renderIndex = function(req, res) {
+            res.sendFile(path.resolve('public/index.html'));
+       }
+       app.use("/*", renderIndex);
     function sanitizeRound(round){
         if(!round.solved) {
             delete round.number;
