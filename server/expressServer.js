@@ -161,12 +161,25 @@ module.exports = function (port, db) {
                     res.sendStatus(err.code);
                 });
         });
+        
+    router.route("/table")
+        .get(function(req, res) {
+           gameService.getTopGames(10)
+            .then(function(games) {
+                res.json(games);
+            }).catch(function (err) {
+                    res.set("responseText", err.msg);
+                    res.sendStatus(err.code);
+            });
+        });
 
        app.use("/api", router);
        var renderIndex = function(req, res) {
             res.sendFile(path.resolve('public/index.html'));
        }
        app.use("/*", renderIndex);
+       
+       
     function sanitizeRound(round){
         if(!round.solved) {
             delete round.number;

@@ -72,6 +72,20 @@ function GameService(db) {
             ); 
         });
     }
+    
+    this.getTopGames = function(size) {
+        return new Promise(function(resolve, reject) {
+            games.find({"points" : {"$gt" : 0} }, {"limit" : size, "sort" : [["points", "desc"]]})
+                .toArray(function(err, res) {
+                    if (err) {
+                        reject({code: 500, msg: err});
+                    }  else {
+                        console.log(res);
+                        resolve(res);
+                    }
+                });
+        })
+    }
 }
 
 module.exports = GameService;
