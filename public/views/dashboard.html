@@ -1,6 +1,35 @@
 <div class="container">
-    <button class="btn btn-success" (click)="newGame()">New Game</button>
-    <div *ngIf="myShow" class="container">
-        <game-component [(game)]="game"></game-component>
+    <h2 class="text-center">Number Funk</h2>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <h4>Create New Game</h4>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <input placeholder="Player" [(ngModel)]="name" class="form-control" id="name" type="text">
+                    </div>
+                    <button [disabled]="!name" class="btn btn-success" (click)="newGame()">New Game</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 float-right">
+            <h2>Top of the Funks</h2>
+            <table class="table">
+                <tr>
+                    <th>Position</th>
+                    <th>Player</th>
+                    <th>Points</th>
+                </tr>
+                <tr *ngFor="#topGame of table #i=index">
+                    <td>{{i}}</td>
+                    <td>
+                        {{topGame.name}}
+                    </td>
+                    <td>
+                        <span class="badge">{{topGame.points}}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

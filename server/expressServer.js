@@ -28,11 +28,11 @@ module.exports = function (port, db) {
     var numberService = new NumberService("Tkvkv3nGSJmshbKhgWUUMoaZ55Byp1pDVAwjsnaAaDNRhrIWic");
 
     router.route("/game")
-        .get(function (req,res) {
+        .post(function (req,res) {
             var game = {
                 points : 0,
                 solved : 0,
-                name : ""
+                name : req.body.name
             }
             
             gameService.createGame(game)

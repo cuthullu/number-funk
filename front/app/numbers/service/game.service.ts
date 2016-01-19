@@ -12,6 +12,9 @@ import {RoundService} from './round.service';
 export class GameService {
     game$: Observable<Game>;
     private _gameObserver: any;
+    
+    table$: Observable<Array<Game>>;
+    private _tableObserver: any;
     constructor(
         private http: Http, 
         private _apiConnectionService: ApiConnectionService,
@@ -19,6 +22,9 @@ export class GameService {
         private _roundService: RoundService ) {
             this.game$ = new Observable(observer => 
             this._gameObserver = observer).share();
+            
+            this.table$ = new Observable(observer => 
+            this._tableObserver = observer).share();
          }
     
     reqGame(id) {
@@ -43,9 +49,9 @@ export class GameService {
     }
 
     
-    reqNewGame() { 
+    reqNewGame(name:string) { 
         var url = this._apiConnectionService.getHost() + "/game";
-        return this.http.get(url);
+        return this.http.post(url, JSON.stringify({name: name}));
     }
     
     setGameName(id,name) {
@@ -56,6 +62,14 @@ export class GameService {
         );
     }
     
+    
+    reqTable() {
+        var url = this._apiConnectionService.getHost() + "/table";
+        this.http.get(url).subscribe(
+            data => this._tableObserver.next(data.json()),
+            err => this._toastService.addToast(err.toString(),"danger",3000)
+        )
+    }
     
 
 }

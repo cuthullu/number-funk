@@ -20,6 +20,8 @@ import {GameComponent} from '../game/game.component';
 
 export class DashboardComponent {
     public game: Game;
+    public name: string;
+    public table: Game[];
     myShow = false;
     
     constructor(
@@ -28,9 +30,18 @@ export class DashboardComponent {
         
     }
     
+    ngOnInit() {
+        this._gameService.table$.subscribe(
+            data => {
+                this.table = data;
+            }
+        )
+        this._gameService.reqTable();
+    }
+    
     newGame() {
         //this._gameService.game$
-        this._gameService.reqNewGame().subscribe(
+        this._gameService.reqNewGame(this.name).subscribe(
             data =>{
                 this._router.navigate(["Game", {game: data.json().id}])
             }
