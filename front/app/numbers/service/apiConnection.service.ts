@@ -5,6 +5,6 @@ export class ApiConnectionService {
     constructor() { }
 
     getHost() {
-        return "http://127.0.0.1:3003/api"
+        return "number-funk.herokuapp.com/api"
     }
 }
