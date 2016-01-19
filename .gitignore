@@ -1,3 +1,6 @@
 .vscode
 node_modules
-public
+public/app
+public/node_modules
+.tscache
+front/app/.base.ts

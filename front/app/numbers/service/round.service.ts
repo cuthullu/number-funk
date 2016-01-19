@@ -3,7 +3,6 @@ import {Http, Headers, HTTP_PROVIDERS} from 'angular2/http';
 import {Observable} from 'rxjs/Observable'
 import {Game} from '../model/game/game';
 import {Round} from '../model/round';
-import {NumberService} from './number.service'
 import {ApiConnectionService} from './apiConnection.service';
 import {ToastService} from './toast.service'
 
@@ -34,7 +33,7 @@ export class RoundService {
                 this._rounds.push(new Round(data.json()));
                 this._roundsObserver.next(this._rounds);
             },
-            err => this._toastService.addToast(err,"danger")
+            err => this._toastService.addToast(err.toString(),"danger")
         );
     }
     
@@ -47,7 +46,7 @@ export class RoundService {
                 }
                 this.updateRound(round)
             },
-            err => this._toastService.addToast(err,"danger")
+            err => this._toastService.addToast(err.toString(),"danger")
         );
     }
     
@@ -63,7 +62,7 @@ export class RoundService {
                 console.log("rounds",this, this._rounds);    
                 //this._roundsObserver.next(this._rounds);
             },
-            err => this._toastService.addToast(err,"danger")
+            err => this._toastService.addToast(err.toString(),"danger")
         );
     }
     
@@ -76,7 +75,7 @@ export class RoundService {
                 })    
                 this._roundsObserver.next(this._rounds);
             },
-            err => this._toastService.addToast(err,"danger")
+            err => this._toastService.addToast(err.toString(),"danger")
         );
     }
     
@@ -85,7 +84,7 @@ export class RoundService {
         var body =  JSON.stringify({answer: answer});
         this.http.post(url, body).subscribe(
             data => this.runResult(game, round, data.json()),
-            err => this._toastService.addToast(err,"danger")
+            err => this._toastService.addToast(err.toString(),"danger")
         );
     }
     

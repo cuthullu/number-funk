@@ -3,7 +3,6 @@ import {ROUTER_PROVIDERS,LocationStrategy,HashLocationStrategy } from 'angular2/
 import {HTTP_PROVIDERS,RequestOptions,BaseRequestOptions,Headers} from 'angular2/http';
 import {provide} from 'angular2/core';
 import {AppComponent} from './app.component'
-import {NumberService} from './numbers/service/number.service'
 import {GameService} from './numbers/service/game.service'
 import {RoundService} from './numbers/service/round.service'
 import {ToastService} from './numbers/service/toast.service'
@@ -17,7 +16,6 @@ class MyOptions extends BaseRequestOptions {
 
 bootstrap(AppComponent, [
     ApiConnectionService,
-    NumberService, 
     GameService,
     RoundService,
     ToastService,

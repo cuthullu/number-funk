@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-nodemon");
-    grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.initConfig({
@@ -18,18 +18,20 @@ module.exports = function (grunt) {
             }
 
         },
-        typescript: {
-            base: {
-                src: ['front/**/*.ts'],
-                dest: 'public/',
+        ts: {
+            build: {
+                src: ["front/**/*.ts", "!node_modules/**/*.ts"], 
+                outDir: "public/app",
+                // Avoid compiling TypeScript files in node_modules
                 options: {
-                    module: 'system', //or commonjs 
-                    target: 'es5', //or es3 
-                    sourceMap: true,
-                    declaration: true,
-                    experimentalDecorators: true,
-                    removeComments: false,
-                    noImplicitAny: false
+                    "target": "ES5",
+                    "module": "system",
+                    "moduleResolution": "node",
+                    "sourceMap": true,
+                    "emitDecoratorMetadata": true,
+                    "experimentalDecorators": true,
+                    "removeComments": false,
+                    "noImplicitAny": false
                 }
             }
         },
@@ -48,6 +50,6 @@ module.exports = function (grunt) {
             },
         }
     });
-    grunt.registerTask("makey",["copy", "typescript", "nodemon"]);
-	grunt.registerTask("default", ["nodemon"]);
+    grunt.registerTask("makey",["ts:build", "copy", "nodemon"]);
+	grunt.registerTask("default", ["makey"]);
 };

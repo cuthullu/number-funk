@@ -38,7 +38,7 @@ export class GameService {
                 });
                 this._gameObserver.next(g);
             },
-            err => this._toastService.addToast(err,"danger",3000)
+            err => this._toastService.addToast(err.toString(),"danger",3000)
         );
     }
 
@@ -50,7 +50,7 @@ export class GameService {
                 var g:Game = new Game(data.json());
                 this._gameObserver.next(g);
             },
-            err => this._toastService.addToast(err,"danger",3000)
+            err => this._toastService.addToast(err.toString(),"danger",3000)
         );
     }
     
@@ -58,7 +58,7 @@ export class GameService {
         var url = this._apiConnectionService.getHost() + "/game/" + id + "/name";
         this.http.post(url, JSON.stringify({name : name})).subscribe(
             () => this._toastService.addToast("Name Submitted good", "success", 3000),
-            err => this._toastService.addToast(err,"danger",3000)
+            err => this._toastService.addToast(err.toString(),"danger",3000)
         );
     }
     

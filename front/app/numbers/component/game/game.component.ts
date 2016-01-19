@@ -1,12 +1,11 @@
 import {Component, Inject} from 'angular2/core'
 import {OnInit} from 'angular2/core'
-import {Input, Output, EventEmitter, TimerWrapper} from 'angular2/core'
+import {Input, Output, EventEmitter} from 'angular2/core'
 import {RouteParams} from "angular2/router"
 
 import {Game} from '../../model/game/game';
 import {Round} from '../../model/round';
 
-import {NumberService} from './../../service/number.service'
 import {GameService} from './../../service/game.service'
 import {RoundService} from './../../service/round.service'
 import {RoundComponent} from '../round/round.component'
@@ -23,7 +22,6 @@ export class GameComponent {
     public game: Game;
 
     constructor(private _routeParams: RouteParams,
-        private _numberService: NumberService,
         private _gameService: GameService,
         private _roundService: RoundService) {
 
@@ -37,7 +35,7 @@ export class GameComponent {
                 this.game.update(sGame);
             }
         });
-        this._gameService.reqGame(this._routeParams.params.game);
+        this._gameService.reqGame(this._routeParams.params["game"]);
         
         this._roundService.result$.subscribe(result => {
             if(result === true) {
