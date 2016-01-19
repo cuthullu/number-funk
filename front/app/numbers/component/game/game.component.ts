@@ -29,6 +29,7 @@ export class GameComponent {
 
     ngOnInit() {
         this._gameService.game$.subscribe(sGame => {
+            console.log(sGame);
             if (this.game === undefined) {
                 this.game = sGame;      
             } else {
@@ -43,7 +44,10 @@ export class GameComponent {
             }
         })
     }
-
+    ngOnDestroy() {
+        console.log(this);
+    }
+    
     addRound() {
         this._roundService.reqNewRound(this.game);
     }

@@ -2,6 +2,8 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-nodemon");
     grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks("grunt-concurrent");
 
 	grunt.initConfig({
 	 	nodemon: {
@@ -35,6 +37,18 @@ module.exports = function (grunt) {
                 }
             }
         },
+        concurrent: {
+            watchers: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        },
+        watch: {
+            files: ['**/*.ts'],
+            tasks: ['ts:build']
+        },
         copy: {
             main: {
                 files: [
@@ -51,6 +65,7 @@ module.exports = function (grunt) {
         }
     });
     grunt.registerTask("makey",["ts:build", "copy"]);
-    grunt.registerTask("makeydemon",["ts:build", "copy", "nodemon"]);
+    grunt.registerTask("dev",[ "copy", "watch"]);
+    grunt.registerTask("serve", ["copy" , "concurrent:watchers"]);
 	grunt.registerTask("default", ["makeydemon"]);
 };

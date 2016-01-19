@@ -45,13 +45,7 @@ export class GameService {
     
     reqNewGame() { 
         var url = this._apiConnectionService.getHost() + "/game";
-        this.http.get(url).subscribe(
-            data => {
-                var g:Game = new Game(data.json());
-                this._gameObserver.next(g);
-            },
-            err => this._toastService.addToast(err.toString(),"danger",3000)
-        );
+        return this.http.get(url);
     }
     
     setGameName(id,name) {

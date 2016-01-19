@@ -34,9 +34,8 @@ module.exports = function (port, db) {
             
             gameService.createGame(game)
                 .then(function(id) {
-                    game._id = id;
-                    game.rounds = [];
-                    res.json(game);
+                    res.set("location", "api/game/" + id);
+                    res.json({id: id});
                 }).catch(function (err) {
                     res.set("responseText", err.msg);
                     res.sendStatus(err.code);

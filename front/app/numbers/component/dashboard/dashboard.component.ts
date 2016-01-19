@@ -29,13 +29,12 @@ export class DashboardComponent {
     }
     
     newGame() {
-        this._gameService.game$.subscribe((newGame)=>{
-            this.game = newGame;
-            this.myShow = true;
-            
-            this._router.navigate(["Game", {game: this.game._id}])
-        });
-        this._gameService.reqNewGame();
+        //this._gameService.game$
+        this._gameService.reqNewGame().subscribe(
+            data =>{
+                this._router.navigate(["Game", {game: data.json().id}])
+            }
+        );
     }
    
     
